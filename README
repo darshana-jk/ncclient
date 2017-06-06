@@ -43,7 +43,7 @@ or integrate the following in your code:
 
     from ncclient import manager
 
-    with manager.connect(host=host, port=830, username=user, hostkey_verify=False) as m:
+    with manager.connect(host=host, port=830, username=darshana, hostkey_verify=False) as m:
         c = m.get_config(source='running').data_xml
         with open("%s.xml" % host, 'w') as f:
             f.write(c)

@@ -163,7 +163,6 @@ class SSHSession(Session):
                 chunk = b''.join(chunk_list)
                 message_list.append(textify(chunk))
                 break # done reading
-            logger.debug('x: %s', x)
             if state == idle:
                 if x == b'\n':
                     state = instart

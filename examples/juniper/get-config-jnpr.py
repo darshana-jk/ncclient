@@ -1,7 +1,13 @@
 #!/usr/bin/env python
+import sys
+import logging
+from ncclient import manager
+
+log = logging.getLogger(__name__)
 
 from ncclient import manager
 from ncclient.xml_ import *
+#from pudb import set_trace; set_trace()
 
 
 def connect(host, port, user, password, source):
@@ -10,14 +16,15 @@ def connect(host, port, user, password, source):
             username=user,
             password=password,
             timeout=10,
-            device_params = {'name':'junos'},
             hostkey_verify=False)
 
     print 'Retrieving full config, please wait ...'
-    result = conn.get_config(source)
+    #result = conn.get()
+    conn.get_config(source)
 
 
     print 'Showing \'system\' hierarchy ...'
+    return 0
     output = result.xpath('data/configuration/system')[0]
     print to_xml(output)
 
@@ -56,4 +63,5 @@ def connect(host, port, user, password, source):
                 print '   %-12s %-30s' % (unit, u_desc)
 
 if __name__ == '__main__':
-    connect('router', 830, 'netconf', 'juniper!', 'candidate')
+    logging.basicConfig(level=logging.DEBUG)
+    connect('127.0.0.1', 830, 'darshana', 'darshana', 'startup')
